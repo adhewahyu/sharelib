@@ -1,11 +1,15 @@
 package com.dan.sharelib.model.entity;
 
-import lombok.Data;
+import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
 
-@Data
+@Setter
+@Getter
+@MappedSuperclass
 public class BaseEntity implements Serializable {
 
     private String createdBy;
