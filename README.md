@@ -1,0 +1,2 @@
+# sharelib
+ shared library 
