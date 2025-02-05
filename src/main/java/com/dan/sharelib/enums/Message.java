@@ -8,7 +8,8 @@ public enum Message {
     DATA_FOUND("0001", "Here is your data"),
     EMAIL_REQUIRED("4000", "Email is required"),
     MSG_NOK("9000","Failed to submit data"),
-    DATA_NOT_FOUND("9001", "Data not found");
+    DATA_NOT_FOUND("9001", "Data not found"),
+    SOMETHING_WENT_WRONG("9999", "Something went wrong");
 
     private final String value;
     private final String msg;
