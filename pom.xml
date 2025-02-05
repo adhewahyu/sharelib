@@ -12,7 +12,7 @@
     <artifactId>sharelib</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>sharelib</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Shared Library for other project</description>
     <url/>
     <licenses>
         <license/>
