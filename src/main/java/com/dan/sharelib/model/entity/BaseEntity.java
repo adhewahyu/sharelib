@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.springframework.data.relational.core.mapping.Column;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -15,12 +15,12 @@ public class BaseEntity implements Serializable {
     private String createdBy;
 
     @Column(value = "created_date")
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     @Column(value = "updated_by")
     private String updatedBy;
 
     @Column(value = "updated_date")
-    private Date updatedDate;
+    private LocalDateTime updatedDate;
 
 }
