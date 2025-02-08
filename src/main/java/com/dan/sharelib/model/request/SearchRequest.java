@@ -13,5 +13,6 @@ public class SearchRequest extends BaseRequest {
     private Integer size;
     private String sortBy;
     private String sortOrder;
+    private String textSearch;
 
 }

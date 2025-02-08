@@ -11,5 +11,6 @@ import org.springframework.data.domain.Pageable;
 public class PageableRequest extends BaseRequest{
 
     private Pageable pageable;
+    private String textSearch;
 
 }
