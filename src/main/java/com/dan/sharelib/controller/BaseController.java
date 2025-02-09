@@ -24,7 +24,7 @@ public class BaseController {
     public Mono<CommonResponse> getCommonPageResponse(Mono<PageResponse> pageResponseMono) {
         return pageResponseMono.flatMap(pageResponse -> Mono.just(CommonResponse.builder()
                 .data(pageResponse)
-                .message(Message.MSG_OK.getMsg())
+                .message(Message.DATA_FOUND.getMsg())
                 .result(true)
                 .build()));
     }
