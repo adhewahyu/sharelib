@@ -34,7 +34,8 @@ public class BaseController {
         Sort.Direction sortOrder = StringUtils.isNotEmpty(input.getSortOrder()) && input.getSortOrder().equalsIgnoreCase("desc") ?
                 Sort.Direction.DESC : Sort.Direction.ASC;
         Integer page = input.getPage() == 0 ? input.getPage() : input.getPage() - 1;
-        return PageRequest.of(page, input.getSize(), Sort.by(sortOrder, sortBy));
+        Integer size = input.getSize() == 0 ? 5 : input.getSize();
+        return PageRequest.of(page, size, Sort.by(sortOrder, sortBy));
     }
 
 }
