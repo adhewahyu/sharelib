@@ -5,6 +5,7 @@ public class Constants {
     public Constants(){}
 
     public static final String SYSTEM = "SYSTEM";
+    public static final String SQL_WILDCARD_LIKE = "%";
 
     public static final String REQ_HEADER_APIKEY = "apiKey";
 

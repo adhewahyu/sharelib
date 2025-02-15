@@ -2,6 +2,7 @@ package com.dan.sharelib.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -27,6 +28,12 @@ public class CommonUtil {
             return localDateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
         }
         return null;
+    }
+
+    public static String wrapTextSearch(String textSearch) {
+        return Constants.SQL_WILDCARD_LIKE
+                + ((StringUtils.isNotEmpty(textSearch)) ? textSearch : "")
+                + Constants.SQL_WILDCARD_LIKE;
     }
 
 }
