@@ -25,8 +25,8 @@ public enum Status {
         }
     }
 
-    public static Status valueOf(int errorMessage) {
-        return (Status) map.get(errorMessage);
+    public static Status valueOf(int statusValue) {
+        return (Status) map.get(statusValue);
     }
 
     public Integer getValue() {
