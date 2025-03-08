@@ -9,6 +9,9 @@ public enum Message {
     EMAIL_REQUIRED("4000", "Email is required"),
     MSG_NOK("9000","Failed to submit data"),
     DATA_NOT_FOUND("9001", "Data not found"),
+    UNKNOWN_TASK("9002", "Unknown task"),
+    ACTION_NOT_FOUND("9003", "Action not found"),
+    MODULE_NOT_FOUND("9004", "Module not found"),
     SOMETHING_WENT_WRONG("9999", "Something went wrong");
 
     private final String value;
