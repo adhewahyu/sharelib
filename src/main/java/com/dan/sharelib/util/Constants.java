@@ -9,6 +9,7 @@ public class Constants {
 
     public static final String REQ_HEADER_APIKEY = "apiKey";
     public static final String REQ_HEADER_USER_AGENT = "User-Agent";
+    public static final String REQ_HEADER_AUTHORIZATION = "Authorization";
 
     public static final String HTTP_CODE_200 = "200";
     public static final String HTTP_CODE_400 = "400";

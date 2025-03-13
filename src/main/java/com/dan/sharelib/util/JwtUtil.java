@@ -86,6 +86,8 @@ public class JwtUtil {
         }
     }
 
-
+    public Integer getExpiryInSeconds() {
+        return jwtExpireInHours.intValue() * 60 * 60;
+    }
 
 }
