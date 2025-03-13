@@ -8,6 +8,7 @@ public enum Message {
     DATA_FOUND("0001", "Here is your data"),
     EMAIL_REQUIRED("4000", "Email is required"),
     INVALID_SALUTATION("4001", "Invalid salutation"),
+    INVALID_LOGIN("4002", "Invalid username or password"),
     MSG_NOK("9000","Failed to submit data"),
     DATA_NOT_FOUND("9001", "Data not found"),
     UNKNOWN_TASK("9002", "Unknown task"),
