@@ -16,7 +16,7 @@ public class BaseController {
     public Mono<CommonResponse> getCommonResponse(Mono<ValidationResponse> validationResponseMono) {
         return validationResponseMono.flatMap(validationResponse -> Mono.just(CommonResponse.builder()
                 .data(null)
-                .message(validationResponse.getResult() ? Message.MSG_OK.getMsg() : Message.MSG_NOK.getMsg())
+                .message(Boolean.TRUE.equals(validationResponse.getResult()) ? Message.MSG_OK.getMsg() : Message.MSG_NOK.getMsg())
                 .result(validationResponse.getResult())
                 .build()));
     }
