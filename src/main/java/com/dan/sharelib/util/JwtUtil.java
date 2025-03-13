@@ -42,7 +42,7 @@ public class JwtUtil {
                     .subject(subject)
                     .claims(claims)
                     .issuedAt(Date.from(Instant.now()))
-                    .expiration(Date.from(Instant.now().plus(TimeUnit.HOURS.toMillis(jwtExpireInHours), ChronoUnit.MILLIS)))
+                    .expiration(Date.from(Instant.now().plus(TimeUnit.HOURS.toHours(jwtExpireInHours), ChronoUnit.HOURS)))
                     .signWith(getSecretKey())
                     .compact();
         } catch (JwtException ex) {
@@ -86,8 +86,23 @@ public class JwtUtil {
         }
     }
 
-    public Integer getExpiryInSeconds() {
-        return jwtExpireInHours.intValue() * 60 * 60;
+    public Integer getExpiryInSeconds(String token) {
+        try {
+            Claims claims = Jwts.parser()
+                    .verifyWith(getSecretKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+            long iatSeconds = claims.getIssuedAt().getTime() / 1000;
+            long expSeconds = claims.getExpiration().getTime() / 1000;
+            Date iatDate = new Date(iatSeconds * 1000);
+            Date expDate = new Date(expSeconds * 1000);
+            Long hoursGap = (expDate.getTime() - iatDate.getTime()) / (1000 * 60 * 60);
+            return hoursGap.intValue() * 60 * 60;
+        } catch (JwtException ex) {
+            log.error("error decode jwt token = {}", ex.getMessage());
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, Message.SOMETHING_WENT_WRONG.getMsg());
+        }
     }
 
 }
