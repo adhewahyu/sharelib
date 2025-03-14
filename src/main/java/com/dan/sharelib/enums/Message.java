@@ -14,6 +14,7 @@ public enum Message {
     UNKNOWN_TASK("9002", "Unknown task"),
     ACTION_NOT_FOUND("9003", "Action not found"),
     MODULE_NOT_FOUND("9004", "Module not found"),
+    UNAUTHORIZED_ACCESS("9998", "Unauthorized access"),
     SOMETHING_WENT_WRONG("9999", "Something went wrong");
 
     private final String value;
