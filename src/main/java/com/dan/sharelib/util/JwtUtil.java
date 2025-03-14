@@ -4,6 +4,7 @@ import com.dan.sharelib.enums.Message;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -34,7 +35,6 @@ public class JwtUtil {
     @Value("${config.security.jwt.expireInHours:24}")
     private Long jwtExpireInHours;
 
-
     public String generateToken(Map<String, Object> claims) {
         try {
             return Jwts.builder()
@@ -51,14 +51,13 @@ public class JwtUtil {
         }
     }
 
-    public String getClaims(String token) {
+    public Claims getClaims(String token) {
         try {
-            Claims claims = Jwts.parser()
+            return Jwts.parser()
                     .verifyWith(getSecretKey())
                     .build()
                     .parseSignedClaims(token)
                     .getPayload();
-            return claims.get("username").toString();
         } catch (JwtException ex) {
             log.error("error decode jwt token = {}", ex.getMessage());
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, Message.SOMETHING_WENT_WRONG.getMsg());
@@ -73,8 +72,7 @@ public class JwtUtil {
     public boolean validToken(String token) {
         try {
             SecretKey key = getSecretKey();
-            Jwts.parser().verifyWith(key).build().parseSignedClaims(token);
-            return true;
+            return ObjectUtils.isNotEmpty(Jwts.parser().verifyWith(key).build().parseSignedClaims(token));
         } catch(SecurityException | MalformedJwtException e) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "JWT was expired or incorrect");
         } catch (ExpiredJwtException e) {
