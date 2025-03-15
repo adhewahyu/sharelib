@@ -15,6 +15,7 @@ public class Constants {
     public static final String FLD_ROLE = "role";
     public static final String FLD_MOBILE = "mobile";
     public static final String FLD_EMAIL = "email";
+    public static final String FLD_SESSION_ID = "sessionId";
 
     public static final String HTTP_CODE_200 = "200";
     public static final String HTTP_CODE_400 = "400";
