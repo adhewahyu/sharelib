@@ -32,6 +32,7 @@
         <apache-common-lang3.version>3.12.0</apache-common-lang3.version>
         <jjwt.version>0.12.6</jjwt.version>
         <apache-common-pool2.version>2.12.1</apache-common-pool2.version>
+        <netty-resolver-dns-native-macos.version>4.1.119.Final</netty-resolver-dns-native-macos.version>
     </properties>
     <dependencies>
 
@@ -95,6 +96,14 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
             <version>${jjwt.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns-native-macos</artifactId>
+            <version>${netty-resolver-dns-native-macos.version}</version>
+            <classifier>osx-aarch_64</classifier>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
