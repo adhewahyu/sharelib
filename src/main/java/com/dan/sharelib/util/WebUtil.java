@@ -4,8 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpCookie;
+import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ServerWebExchange;
 
 import java.util.Objects;
 
@@ -21,35 +22,35 @@ public class WebUtil {
     private String maxAgeCookie = "Max-Age";
     private String expires = "Expires=T";
 
-    public void doWriteCookie(ServerWebExchange exchange,
+    public void doWriteCookie(ServerHttpResponse serverHttpResponse,
                               String cookieName,
                               String cookieValue,
                               Integer expiry,
                               Boolean secure,
                               Boolean httpOnly){
-        if(StringUtils.isNotEmpty(exchange.getResponse().getHeaders().getFirst(cookieHeader))
-                && exchange.getResponse().getHeaders().getFirst(cookieHeader).contains(cookieName)){
-            exchange.getResponse().getHeaders()
+        if(StringUtils.isNotEmpty(serverHttpResponse.getHeaders().getFirst(cookieHeader))
+                && serverHttpResponse.getHeaders().getFirst(cookieHeader).contains(cookieName)){
+            serverHttpResponse.getHeaders()
                     .set(cookieHeader, getCookieString(cookieName, cookieValue, expiry, secure, httpOnly, false));
         }else{
-            exchange.getResponse().getHeaders()
+            serverHttpResponse.getHeaders()
                     .add(cookieHeader, getCookieString(cookieName, cookieValue, expiry, secure, httpOnly, false));
         }
     }
 
-    public void doWriteCookie(ServerWebExchange exchange,
+    public void doWriteCookie(ServerHttpResponse serverHttpResponse,
                               String cookieName,
                               String cookieValue,
                               Integer expiry,
                               Boolean secure,
                               Boolean httpOnly,
                               Boolean sameSiteNone) {
-        if(StringUtils.isNotEmpty(exchange.getResponse().getHeaders().getFirst(cookieHeader))
-                && exchange.getResponse().getHeaders().getFirst(cookieHeader).contains(cookieName)){
-            exchange.getResponse().getHeaders()
+        if(StringUtils.isNotEmpty(serverHttpResponse.getHeaders().getFirst(cookieHeader))
+                && serverHttpResponse.getHeaders().getFirst(cookieHeader).contains(cookieName)){
+            serverHttpResponse.getHeaders()
                     .set(cookieHeader, getCookieString(cookieName, cookieValue, expiry, secure, httpOnly, sameSiteNone));
         }else{
-            exchange.getResponse().getHeaders()
+            serverHttpResponse.getHeaders()
                     .add(cookieHeader, getCookieString(cookieName, cookieValue, expiry, secure, httpOnly, sameSiteNone));
         }
     }
@@ -79,16 +80,12 @@ public class WebUtil {
         return stringBuilder.toString();
     }
 
-    public void doDeleteCookie( ServerWebExchange exchange, Boolean secure, Boolean httpOnly, String cookieName){
-        if(StringUtils.isNotEmpty(exchange.getResponse().getHeaders().getFirst(cookieHeader))
-                && exchange.getResponse().getHeaders().getFirst(cookieHeader).contains(cookieName)){
-            exchange.getResponse().getHeaders()
-                    .set(cookieHeader, getCookieString(cookieName, null, 0, secure, httpOnly, false));
-        }
+    public void doDeleteCookie(ServerHttpResponse serverHttpResponse, Boolean secure, Boolean httpOnly, String cookieName){
+        doWriteCookie(serverHttpResponse, cookieName, null, 1, secure, httpOnly);
     }
 
-    public String getCookie( ServerWebExchange exchange,  String cookieName){
-        HttpCookie cookie = exchange.getRequest().getCookies().getFirst(cookieName);
+    public String getCookie(ServerHttpRequest serverHttpRequest,  String cookieName){
+        HttpCookie cookie = serverHttpRequest.getCookies().getFirst(cookieName);
         if(ObjectUtils.isNotEmpty(cookie)){
             return Objects.requireNonNull(cookie).getValue();
         }
